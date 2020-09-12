@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fk.bgshop.mapper.ProductMapper">
+    <insert id="addProduct">
+        insert into product values(null,#{trade},#{price},now(),#{stars},#{detail},#{cate_id},#{path})
+    </insert>
+    <update id="updateProduct">
+        update product set  trade=#{trade},price=#{price},stars=#{stars},detail=#{detail},cate_id=#{cate_id},path=#{path} where id=#{id}
+    </update>
+    <delete id="delProduct">
+        delete  from product where id=#{id}
+    </delete>
+
+    <select id="getAllProduct" resultType="com.fk.bgshop.pojo.Product">
+         SELECT * FROM product ORDER BY id desc
+    </select>
+    <select id="getProductById" resultType="com.fk.bgshop.pojo.Product">
+        select * from product where id=#{id}
+    </select>
+</mapper>

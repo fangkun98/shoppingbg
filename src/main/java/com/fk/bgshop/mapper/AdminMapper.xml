@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fk.bgshop.mapper.AdminMapper">
+    <update id="updatePhoto">
+        update admin set photo=#{photo} where id=#{id}
+    </update>
+    <update id="updatePassword">
+         update admin set password=#{password} where id=#{id}
+    </update>
+    <select id="adminLogin" resultType="com.fk.bgshop.pojo.Admin">
+        select * from admin where username=#{username} and password=#{password}
+    </select>
+</mapper>

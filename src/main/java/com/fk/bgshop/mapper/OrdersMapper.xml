@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fk.bgshop.mapper.OrdersMapper">
+    <update id="updateState">
+        update orders set order_state=0 where id=#{id}
+    </update>
+    <select id="getAllOrders" resultType="com.fk.bgshop.pojo.Orders">
+        select  * from orders order by uid
+    </select>
+    <select id="getOrders" resultType="com.fk.bgshop.pojo.Orders">
+        select  * from orders where order_state=-1
+    </select>
+</mapper>

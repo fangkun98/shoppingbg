@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,users-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="application/javascript">
+		function upState(id) {
+			$.post("updateOrderStatr","id="+id,{});
+			location.href="";
+		}
+	</script>
+    
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+  <!-- .box-body -->
+                
+                    <div class="box-header with-border">
+                        <h3 class="box-title">查看订单</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+			                              <th class="" style="padding-right:0px">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                              </th>
+										  <th class="sorting_asc">订单ID</th>
+										  <th class="sorting">下单用户</th>
+
+									      <th class="sorting">商品ID</th>
+									      <th class="sorting">商品名称</th>
+									      <th class="sorting">下单数量</th>
+									      <th class="sorting">商品单价</th>
+									      <th class="sorting">订单金额</th>
+									      <th class="sorting">下单时间</th>
+									      <th class="sorting">订单状态</th>
+										  <th class="sorting">收货人</th>
+									      <th class="sorting">收货地址</th>
+			                          </tr>
+			                      </thead>
+								  <tbody>
+								  <tr th:each="order:${ordersList}">
+									  <td><input  type="checkbox"></td>
+									  <td th:text="${order.id}">id</td>
+
+									  <td>
+										   <span th:each="users:${userList}">
+											  <span th:if="${order.uid==users.id}">
+												  <span th:text="${users.username}"></span>
+											  </span>
+										  </span>
+									  </td>
+
+
+									  <td th:text="${order.pid}">商品ID</td>
+									  <td th:text="${order.pname}">商品名称</td>
+									  <td th:text="${order.num}">商品数量</td>
+									  <td th:text="${order.price}">价格</td>
+									  <td th:text="${order.money}">价格</td>
+									  <td th:text="${#dates.format(order.create_time,'yyyy-MM-dd HH:mm')}">下单时间</td>
+									  <td >
+										  <span th:if="${order.order_state==-1}">
+											  <span class="badge" style="background-color:red;">待发货</span>
+											  <span class="badge" style="background-color:oldlace;"><a th:onclick="|upState(${order.id});|"  href="#">确认发货</a></span>
+										  </span>
+										  <span th:if="${order.order_state==0}">
+												  <span class="badge" style="background-color:yellowgreen;">已发货</span>
+										  </span>
+										  <span th:if="${order.order_state==1}">
+												  <span class="badge" style="background-color:cornflowerblue;">已收货</span>
+										  </span>
+									  </td>
+									  <td>
+										   <span th:each="address:${addressList}">
+											  <span th:if="${order.address_id==address.id}">
+												  <span th:text="${address.name}"></span>
+											  </span>
+										  </span>
+									  </td>
+									  <td >
+										  <span th:each="address:${addressList}">
+											  <span th:if="${order.address_id==address.id}">
+												  <span th:text="${address.province}"></span>
+												  <span th:text="${address.city}"></span>
+												  <span th:text="${address.detail}"></span>
+											  </span>
+										  </span>
+									  </td>
+
+								  </tr>
+								  </tbody>
+			                  </table>
+			                  <!--数据列表/-->
+                        </div>
+                        <!-- 数据表格 /-->
+                     </div>
+                    <!-- /.box-body -->
+
+
+</body>
+
+</html>
